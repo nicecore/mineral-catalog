@@ -5,29 +5,6 @@ from django.forms.models import model_to_dict
 import json
 from django.db import IntegrityError
 
-def mineral_list(request):
-    """Returns all minerals and a random mineral"""
-    minerals = Mineral.objects.all()
-    random_min = random.choice(minerals)
-    return render(
-        request, 
-        'minerals/mineral_list.html', 
-        {'minerals': minerals, 'random': random_min}
-    )
-
-
-def mineral_detail(request, pk):
-    """Returns a particular mineral and a random mineral"""
-    mineral_predict = get_object_or_404(Mineral, pk=pk)
-    minerals = Mineral.objects.all()
-    random_min = random.choice(minerals)
-    mineral = model_to_dict(mineral_predict)
-    return render(
-        request,
-        'minerals/mineral_detail.html',
-        {'mineral': mineral, 'random': random_min}
-    )
-
 
 def make_mineral_dict(mineral):
     fields = {
@@ -85,3 +62,28 @@ def add_minerals_to_database():
                 ).save()
             except IntegrityError:
                 continue
+
+
+def mineral_list(request):
+    """Returns all minerals and a random mineral"""
+    add_minerals_to_database()
+    minerals = Mineral.objects.all()
+    random_min = random.choice(minerals)
+    return render(
+        request, 
+        'minerals/mineral_list.html', 
+        {'minerals': minerals, 'random': random_min}
+    )
+
+
+def mineral_detail(request, pk):
+    """Returns a particular mineral and a random mineral"""
+    mineral_predict = get_object_or_404(Mineral, pk=pk)
+    minerals = Mineral.objects.all()
+    random_min = random.choice(minerals)
+    mineral = model_to_dict(mineral_predict)
+    return render(
+        request,
+        'minerals/mineral_detail.html',
+        {'mineral': mineral, 'random': random_min}
+    )
