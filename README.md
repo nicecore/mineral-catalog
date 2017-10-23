@@ -4,11 +4,10 @@
 
 Note on loading minerals.json into the database:
 
-1. minerals/views.py contains two functions responsible for loading the minerals
-into the database.
+1. The repo comes with the database all migrated and ready to go, but it's empty.
 
-2. Ensure that minerals.json is located in minerals/
+2. The function responsible for loading minerals into the database is in minerals/views and runs upon navigation to the homepage/mineral list.
 
-3. Run the Django shell and import views from minerals.models
+3. Simply run the Django development server and navigate to the homepage to load the minerals.
 
-4. Call views.add_minerals_to_database() to load minerals into the database.
+---
